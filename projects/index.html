@@ -261,11 +261,11 @@
     <nav class="sidebar" aria-label="Primary navigation">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li class="mobile-only"><a href="projects/index.html">Projects</a></li>
+        <li class="mobile-only"><a href="projects/index.html" aria-current="page">Projects</a></li>
         <li class="desktop-only">
-          <a href="#">Other Pages ▾</a>
+          <a href="#" aria-haspopup="true" aria-expanded="false">Other Pages ▾</a>
           <ul class="dropdown" aria-label="submenu">
-            <li><a href="projects/index.html">Projects</a></li>
+            <li><a href="projects/index.html" aria-current="page">Projects</a></li>
           </ul>
         </li>
       </ul>
@@ -290,6 +290,9 @@
     function toggleNav() {
       sidebar.classList.toggle('open');
       overlay.classList.toggle('active');
+      // toggle aria-expanded for accessibility
+      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+      navToggle.setAttribute('aria-expanded', String(!expanded));
     }
 
     navToggle.addEventListener('click', toggleNav);
@@ -299,6 +302,7 @@
       link.addEventListener('click', () => {
         sidebar.classList.remove('open');
         overlay.classList.remove('active');
+        navToggle.setAttribute('aria-expanded', 'false');
       });
     });
   </script>
