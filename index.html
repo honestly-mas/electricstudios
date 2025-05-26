@@ -30,35 +30,26 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 20px 24px;
-      height: 100px;
+      padding: 0 16px;
+      height: 80px;
       position: sticky;
       top: 0;
       z-index: 1100;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
 
-    .header-left {
-      display: flex;
-      align-items: center;
-    }
-
     .site-title {
-      font-size: 28px;
+      font-size: 24px;
       font-weight: bold;
       color: var(--deep-brown);
       user-select: none;
-      z-index: 1100;
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
     .logo {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 10px;
-      height: 80px;
-      pointer-events: none;
-      z-index: 1200;
+      height: 60px;
     }
 
     .nav-toggle {
@@ -181,7 +172,18 @@
     }
 
     .overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0,0,0,0.3);
       display: none;
+      z-index: 1350;
+    }
+
+    .overlay.active {
+      display: block;
     }
 
     @media (max-width: 767px) {
@@ -197,12 +199,10 @@
         height: 100%;
         background-color: white;
         box-shadow: 3px 0 15px rgba(0,0,0,0.15);
-        padding: 40px 20px;
+        padding: 80px 20px 20px;
         box-sizing: border-box;
         transition: left 0.3s ease;
         z-index: 1400;
-        border-radius: 0 0 16px 0;
-        display: block;
         flex-direction: column;
       }
 
@@ -215,21 +215,6 @@
         gap: 20px;
       }
 
-      .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0,0,0,0.3);
-        display: none;
-        z-index: 1350;
-      }
-
-      .overlay.active {
-        display: block;
-      }
-
       .desktop-only {
         display: none;
       }
@@ -238,25 +223,18 @@
         display: block;
       }
 
-      .logo {
-        top: 70px;
-        height: 50px;
-        z-index: 1000;
-      }
-
-      .site-title {
-        font-size: 22px;
-        z-index: 1100;
+      body.nav-open {
+        overflow: hidden;
       }
     }
   </style>
 </head>
 <body>
   <header>
-    <div class="header-left">
-      <div class="site-title">Electric Studios</div>
+    <div class="site-title">
+      <img src="es_logo.png" alt="Electric Studios Logo" class="logo" />
+      Electric Studios
     </div>
-    <img src="es_logo.png" alt="Electric Studios Logo" class="logo" />
     <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
     <nav class="sidebar" aria-label="Primary navigation">
       <ul>
@@ -295,20 +273,22 @@
     const navToggle = document.querySelector('.nav-toggle');
     const sidebar = document.querySelector('nav.sidebar');
     const overlay = document.querySelector('.overlay');
+    const body = document.body;
 
     function toggleNav() {
       sidebar.classList.toggle('open');
       overlay.classList.toggle('active');
+      body.classList.toggle('nav-open');
     }
 
     navToggle.addEventListener('click', toggleNav);
     overlay.addEventListener('click', toggleNav);
 
-    // Close sidebar when a link is clicked (mobile)
     sidebar.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         sidebar.classList.remove('open');
         overlay.classList.remove('active');
+        body.classList.remove('nav-open');
       });
     });
   </script>
