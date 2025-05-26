@@ -165,7 +165,6 @@
       display: none;
     }
 
-    /* Dropdown menu */
     nav.sidebar ul li.dropdown-parent > ul.dropdown {
       position: absolute;
       top: 100%;
@@ -333,7 +332,6 @@
     navToggle.addEventListener('click', toggleNav);
     overlay.addEventListener('click', toggleNav);
 
-    // Close nav when clicking a nav link (mobile)
     sidebar.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         sidebar.classList.remove('open');
@@ -341,7 +339,6 @@
       });
     });
 
-    // Mobile: toggle dropdown submenu when clicking parent
     dropdownParent.addEventListener('click', (e) => {
       if(window.innerWidth < 768) {
         e.preventDefault();
