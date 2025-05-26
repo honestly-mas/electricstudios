@@ -9,6 +9,7 @@
     --cream-yellow: #fffdd0;
     --deep-brown: #2d1b00;
     --accent-pink: #ff69b4;
+    --nav-grey: #ccc;
   }
 
   * {
@@ -61,6 +62,13 @@
     display: flex;
     gap: 40px;
     align-items: center;
+    background-color: var(--nav-grey);
+    border-radius: 8px;
+    padding: 10px 20px;
+  }
+
+  nav ul li {
+    position: relative;
   }
 
   nav ul li a {
@@ -71,11 +79,52 @@
     padding: 8px 12px;
     border-radius: 8px;
     transition: background-color 0.2s ease;
+    display: block;
   }
 
   nav ul li a:hover {
     background-color: var(--accent-pink);
     color: white;
+  }
+
+  /* Dropdown styles for Other Pages on desktop */
+  .dropdown {
+    cursor: pointer;
+  }
+
+  .dropdown > a::after {
+    content: " ▼";
+    font-size: 12px;
+  }
+
+  .dropdown ul {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--nav-grey);
+    border-radius: 0 0 8px 8px;
+    padding: 10px 0;
+    min-width: 140px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    z-index: 1002;
+  }
+
+  .dropdown ul li a {
+    padding: 8px 20px;
+    border-radius: 0;
+  }
+
+  .dropdown ul li a:hover {
+    background-color: var(--accent-pink);
+    color: white;
+  }
+
+  /* Show dropdown only on desktop hover */
+  @media (hover: hover) and (min-width: 768px) {
+    .dropdown:hover ul {
+      display: block;
+    }
   }
 
   /* Hamburger menu button - hidden on desktop */
@@ -121,6 +170,45 @@
     nav ul {
       flex-direction: column;
       gap: 20px;
+      background: none;
+      padding: 0;
+      border-radius: 0;
+      box-shadow: none;
+    }
+
+    nav ul li {
+      position: static;
+    }
+
+    .dropdown > a::after {
+      content: "";
+    }
+
+    .dropdown ul {
+      display: none !important;
+      position: static;
+      box-shadow: none;
+      background: none;
+      padding: 0;
+      min-width: auto;
+      border-radius: 0;
+    }
+
+    /* Show all links flat on mobile (no dropdown) */
+    nav.open ul li {
+      padding-left: 16px;
+    }
+
+    nav.open ul li a {
+      padding: 10px 0;
+      font-size: 20px;
+      border-radius: 0;
+    }
+
+    /* Show projects as normal item under other pages on mobile */
+    nav.open ul li.dropdown + ul,
+    nav.open ul li.dropdown ul {
+      display: none;
     }
 
     .nav-toggle {
@@ -174,8 +262,17 @@
   <nav aria-label="Primary navigation">
     <ul>
       <li><a href="index.html">Home</a></li>
-      <li><a href="projects/index.html">Projects</a></li>
-      <li><a href="about.html">About</a></li>
+
+      <!-- Desktop dropdown for Other Pages -->
+      <li class="dropdown">
+        <a href="#">Other Pages</a>
+        <ul>
+          <li><a href="projects/index.html">Projects</a></li>
+        </ul>
+      </li>
+
+      <!-- On mobile, show Projects flat (because dropdown won't work) -->
+      <li class="mobile-only"><a href="projects/index.html">Projects</a></li>
     </ul>
   </nav>
 </header>
@@ -221,6 +318,18 @@
       overlay.classList.remove('active');
     });
   });
+
+  // Show/hide mobile-only projects link depending on screen size
+  function handleResize() {
+    const mobileOnly = document.querySelector('.mobile-only');
+    if(window.innerWidth < 768) {
+      mobileOnly.style.display = 'block';
+    } else {
+      mobileOnly.style.display = 'none';
+    }
+  }
+  window.addEventListener('resize', handleResize);
+  handleResize();
 </script>
 
 </body>
