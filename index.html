@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Electric Studios</title>
   <style>
     :root {
@@ -12,9 +12,9 @@
     }
 
     * {
-      box-sizing: border-box;
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
     }
 
     body {
@@ -26,10 +26,10 @@
     }
 
     header {
-      background-color: var(--cream-yellow);
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      justify-content: space-between;
+      background-color: var(--cream-yellow);
       padding: 20px 24px;
       height: 100px;
       position: sticky;
@@ -41,6 +41,12 @@
     .header-left {
       display: flex;
       align-items: center;
+      gap: 12px;
+    }
+
+    .logo {
+      height: 80px;
+      user-select: none;
     }
 
     .site-title {
@@ -48,17 +54,7 @@
       font-weight: bold;
       color: var(--deep-brown);
       user-select: none;
-      z-index: 1100;
-    }
-
-    .logo {
-      position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
-      top: 10px;
-      height: 80px;
-      pointer-events: none;
-      z-index: 1200;
+      white-space: nowrap;
     }
 
     .nav-toggle {
@@ -67,8 +63,8 @@
       border: none;
       color: var(--deep-brown);
       cursor: pointer;
-      z-index: 1300;
       display: none;
+      z-index: 1300;
     }
 
     nav.sidebar {
@@ -79,13 +75,8 @@
     nav.sidebar ul {
       list-style: none;
       display: flex;
-      flex-direction: row;
       gap: 40px;
       align-items: center;
-    }
-
-    nav.sidebar ul li {
-      position: relative;
     }
 
     nav.sidebar ul li a {
@@ -103,33 +94,33 @@
       color: white;
     }
 
-    nav.sidebar ul li.dropdown-parent > ul.dropdown {
+    .dropdown-parent > ul.dropdown {
+      display: none;
       position: absolute;
       top: 100%;
       left: 0;
       background: white;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       border-radius: 8px;
-      list-style: none;
       padding: 10px 0;
       min-width: 160px;
-      display: none;
       flex-direction: column;
+      list-style: none;
       z-index: 1300;
     }
 
-    nav.sidebar ul li.dropdown-parent:hover > ul.dropdown {
+    .dropdown-parent:hover > ul.dropdown {
       display: flex;
     }
 
-    nav.sidebar ul li.dropdown-parent > ul.dropdown li a {
+    .dropdown-parent > ul.dropdown li a {
       padding: 8px 20px;
       font-size: 16px;
-      display: block;
       white-space: nowrap;
+      display: block;
     }
 
-    nav.sidebar ul li.dropdown-parent > ul.dropdown li a:hover {
+    .dropdown-parent > ul.dropdown li a:hover {
       background-color: var(--accent-pink);
       color: white;
     }
@@ -184,6 +175,7 @@
       display: none;
     }
 
+    /* MOBILE STYLES */
     @media (max-width: 767px) {
       .nav-toggle {
         display: block;
@@ -202,7 +194,6 @@
         transition: left 0.3s ease;
         z-index: 1400;
         border-radius: 0 0 16px 0;
-        display: flex;
         flex-direction: column;
         justify-content: flex-start;
         gap: 20px;
@@ -241,14 +232,11 @@
       }
 
       .logo {
-        top: 10px;
         height: 60px;
-        z-index: 1200;
       }
 
       .site-title {
         font-size: 22px;
-        z-index: 1100;
       }
     }
   </style>
@@ -256,18 +244,20 @@
 <body>
   <header>
     <div class="header-left">
+      <img src="es_logo.png" alt="Electric Studios Logo" class="logo" />
       <div class="site-title">Electric Studios</div>
     </div>
-    <img src="es_logo.png" alt="Electric Studios Logo" class="logo" />
+
     <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
+
     <nav class="sidebar" aria-label="Primary navigation">
       <ul>
-        <li><a href="ellectricstudios.com">Home</a></li>
-        <li class="mobile-only"><a href="projects/">Projects</a></li>
+        <li><a href="index.html">Home</a></li>
+        <li class="mobile-only"><a href="projects/index.html">Projects</a></li>
         <li class="desktop-only dropdown-parent">
-          <a href="#">Other Pages ▾</a>
+          <a href="#" tabindex="0">Other Pages ▾</a>
           <ul class="dropdown" aria-label="submenu">
-            <li><a href="projects/">Projects</a></li>
+            <li><a href="projects/index.html">Projects</a></li>
           </ul>
         </li>
       </ul>
@@ -297,7 +287,6 @@
     const navToggle = document.querySelector('.nav-toggle');
     const sidebar = document.querySelector('nav.sidebar');
     const overlay = document.querySelector('.overlay');
-    const body = document.body;
 
     function toggleNav() {
       sidebar.classList.toggle('open');
@@ -307,17 +296,12 @@
     navToggle.addEventListener('click', toggleNav);
     overlay.addEventListener('click', toggleNav);
 
-    // Mobile nav link click: wait before navigating
+    // No delay navigation on mobile — link click closes sidebar then navigates immediately
     sidebar.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', (e) => {
-        const href = link.getAttribute('href');
-        if (href && href !== '#') {
-          e.preventDefault();
+      link.addEventListener('click', () => {
+        if (window.innerWidth <= 767) {
           sidebar.classList.remove('open');
           overlay.classList.remove('active');
-          setTimeout(() => {
-            window.location.href = href;
-          }, 200);
         }
       });
     });
