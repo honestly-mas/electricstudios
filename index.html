@@ -56,6 +56,7 @@
       transform: translateX(-50%);
       height: 80px;
       pointer-events: none;
+      z-index: 1200;
     }
 
     .nav-toggle {
@@ -93,12 +94,10 @@
       margin-bottom: 12px;
       border-bottom: 2px solid var(--accent-pink);
       padding-bottom: 8px;
-      text-align: center;
     }
 
     .section p {
       font-size: 18px;
-      text-align: center;
     }
 
     nav.sidebar {
@@ -169,7 +168,7 @@
     /* Dropdown menu */
     nav.sidebar ul li.dropdown-parent > ul.dropdown {
       position: absolute;
-      top: 120%;
+      top: 100%;
       left: 0;
       background: white;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
@@ -184,12 +183,7 @@
     }
 
     nav.sidebar ul li.dropdown-parent:hover > ul.dropdown {
-      display: flex !important;
-    }
-
-    nav.sidebar ul li.dropdown-parent > a {
-      cursor: default;
-      pointer-events: none;
+      display: flex;
     }
 
     nav.sidebar ul li.dropdown-parent > ul.dropdown li a {
@@ -210,7 +204,7 @@
       }
 
       nav.sidebar {
-        position: static;
+        position: relative;
         width: auto;
         height: auto;
         background: transparent;
@@ -261,10 +255,6 @@
     }
 
     @media (max-width: 767px) {
-      nav.sidebar ul li.dropdown-parent > a {
-        pointer-events: auto;
-        cursor: pointer;
-      }
       nav.sidebar ul li.dropdown-parent > ul.dropdown {
         display: none !important;
         position: static;
@@ -276,8 +266,14 @@
         flex-direction: column;
         gap: 10px;
       }
+
       nav.sidebar ul li.dropdown-parent.open > ul.dropdown {
         display: flex !important;
+      }
+
+      nav.sidebar ul li.dropdown-parent > a {
+        pointer-events: auto;
+        cursor: pointer;
       }
     }
   </style>
@@ -289,19 +285,20 @@
     </div>
     <img src="es_logo.png" alt="Electric Studios Logo" class="logo" />
     <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
-    <nav class="sidebar" aria-label="Primary navigation">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li class="mobile-only"><a href="projects/index.html">Projects</a></li>
-        <li class="desktop-only dropdown-parent">
-          <a href="#">Other Pages ▾</a>
-          <ul class="dropdown" aria-label="submenu">
-            <li><a href="projects/index.html">Projects</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
   </header>
+
+  <nav class="sidebar" aria-label="Primary navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li class="mobile-only"><a href="projects/index.html">Projects</a></li>
+      <li class="desktop-only dropdown-parent">
+        <a href="#">Other Pages ▾</a>
+        <ul class="dropdown" aria-label="submenu">
+          <li><a href="projects/index.html">Projects</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
 
   <div class="overlay"></div>
 
