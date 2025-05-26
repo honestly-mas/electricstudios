@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Projects - Electric Studios</title>
   <style>
     :root {
@@ -93,38 +93,22 @@
     }
 
     nav.sidebar ul li a {
-      position: relative;
       color: var(--deep-brown);
       text-decoration: none;
       font-size: 20px;
       font-weight: 600;
-      padding: 8px 12px 8px 24px; /* space for circle */
-      border-radius: 8px;
-      transition: background-color 0.2s ease, color 0.3s ease;
+      padding: 10px 16px;
+      border-radius: 12px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      display: inline-block;
       cursor: pointer;
     }
 
-    nav.sidebar ul li a::before {
-      content: "";
-      position: absolute;
-      left: 8px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: transparent;
-      transition: background-color 0.3s ease;
-    }
-
-    nav.sidebar ul li a:hover::before,
-    nav.sidebar ul li a:focus::before {
-      background-color: var(--accent-pink);
-    }
-
-    nav.sidebar ul li a:hover {
+    nav.sidebar ul li a:hover,
+    nav.sidebar ul li a:focus {
       background-color: var(--accent-pink);
       color: white;
+      outline: none;
     }
 
     .overlay {
@@ -176,29 +160,19 @@
         align-items: center;
       }
 
-      nav.sidebar ul > li {
-        position: relative;
-      }
-
       nav.sidebar ul li a {
         font-size: 18px;
-        padding: 0 0 0 24px;
+        padding: 8px 16px;
         background: none;
         color: var(--deep-brown);
+        border-radius: 12px;
       }
 
-      nav.sidebar ul li a:hover {
-        background: none;
-        color: var(--accent-pink);
-      }
-
-      nav.sidebar ul li a::before {
-        left: 0;
-      }
-
-      nav.sidebar ul li a:hover::before,
-      nav.sidebar ul li a:focus::before {
+      nav.sidebar ul li a:hover,
+      nav.sidebar ul li a:focus {
         background-color: var(--accent-pink);
+        color: white;
+        outline: none;
       }
 
       nav.sidebar ul li ul.dropdown {
@@ -226,9 +200,11 @@
         font-size: 16px;
         display: block;
         white-space: nowrap;
+        border-radius: 0;
       }
 
-      nav.sidebar ul li ul.dropdown li a:hover {
+      nav.sidebar ul li ul.dropdown li a:hover,
+      nav.sidebar ul li ul.dropdown li a:focus {
         background-color: var(--accent-pink);
         color: white;
       }
