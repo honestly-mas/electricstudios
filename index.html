@@ -6,10 +6,11 @@
 <title>Electric Studios</title>
 <style>
   :root {
-    --cream-yellow: #fffdd0;
-    --deep-brown: #2d1b00;
-    --accent-pink: #ff69b4;
-    --nav-grey: #ccc;
+    --white: #fff;
+    --black: #000;
+    --gray-bg: #ccc;
+    --dark-gray: #333;
+    --light-gray: #eee;
   }
 
   * {
@@ -19,8 +20,8 @@
 
   body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: var(--cream-yellow);
-    color: var(--deep-brown);
+    background-color: var(--white);
+    color: var(--black);
   }
 
   header {
@@ -29,7 +30,7 @@
     align-items: center;
     padding: 20px 24px;
     height: 100px;
-    background-color: var(--cream-yellow);
+    background-color: var(--gray-bg);
     position: sticky;
     top: 0;
     z-index: 1000;
@@ -45,12 +46,14 @@
     height: 80px;
     margin-right: 20px;
     user-select: none;
+    filter: grayscale(100%) brightness(0) invert(1);
   }
 
   .site-title {
     font-size: 28px;
     font-weight: bold;
     user-select: none;
+    color: var(--black);
   }
 
   nav {
@@ -62,7 +65,7 @@
     display: flex;
     gap: 40px;
     align-items: center;
-    background-color: var(--nav-grey);
+    background-color: var(--gray-bg);
     border-radius: 8px;
     padding: 10px 20px;
   }
@@ -73,18 +76,18 @@
 
   nav ul li a {
     text-decoration: none;
-    color: var(--deep-brown);
+    color: var(--black);
     font-weight: 600;
     font-size: 18px;
     padding: 8px 12px;
     border-radius: 8px;
-    transition: background-color 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease;
     display: block;
   }
 
   nav ul li a:hover {
-    background-color: var(--accent-pink);
-    color: white;
+    background-color: var(--dark-gray);
+    color: var(--white);
   }
 
   /* Dropdown styles for Other Pages on desktop */
@@ -102,7 +105,7 @@
     position: absolute;
     top: 100%;
     left: 0;
-    background: var(--nav-grey);
+    background: var(--gray-bg);
     border-radius: 0 0 8px 8px;
     padding: 10px 0;
     min-width: 140px;
@@ -113,11 +116,12 @@
   .dropdown ul li a {
     padding: 8px 20px;
     border-radius: 0;
+    color: var(--black);
   }
 
   .dropdown ul li a:hover {
-    background-color: var(--accent-pink);
-    color: white;
+    background-color: var(--dark-gray);
+    color: var(--white);
   }
 
   /* Show dropdown only on desktop hover */
@@ -134,7 +138,7 @@
     background: none;
     border: none;
     cursor: pointer;
-    color: var(--deep-brown);
+    color: var(--black);
   }
 
   /* Overlay behind mobile menu */
@@ -153,7 +157,7 @@
       top: 0; left: -260px;
       width: 260px;
       height: 100vh;
-      background: white;
+      background: var(--white);
       flex-direction: column;
       padding-top: 100px;
       gap: 20px;
@@ -194,7 +198,6 @@
       border-radius: 0;
     }
 
-    /* Show all links flat on mobile (no dropdown) */
     nav.open ul li {
       padding-left: 16px;
     }
@@ -203,12 +206,7 @@
       padding: 10px 0;
       font-size: 20px;
       border-radius: 0;
-    }
-
-    /* Show projects as normal item under other pages on mobile */
-    nav.open ul li.dropdown + ul,
-    nav.open ul li.dropdown ul {
-      display: none;
+      color: var(--black);
     }
 
     .nav-toggle {
@@ -231,7 +229,7 @@
   }
 
   section {
-    background: white;
+    background: var(--white);
     border-radius: 16px;
     padding: 24px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
@@ -240,12 +238,14 @@
   section h2 {
     font-size: 26px;
     margin-bottom: 12px;
-    border-bottom: 2px solid var(--accent-pink);
+    border-bottom: 2px solid var(--dark-gray);
     padding-bottom: 8px;
+    color: var(--black);
   }
 
   section p {
     font-size: 18px;
+    color: var(--black);
   }
 </style>
 </head>
@@ -282,7 +282,7 @@
 <main>
   <section>
     <h2>Welcome to Electric Studios</h2>
-    <p>Electric Studios is a Roblox-based group that puts on immersive live shows — inspired by real-life tours like The Eras Tour and Short n’ Sweet. We bring iconic music events into the virtual world. 🎤💫</p>
+    <p>Electric Studios is a Roblox-based group that puts on immersive live shows — inspired by real-life tours like The Eras Tour and Short n’ Sweet. We bring iconic music events into the virtual world.</p>
   </section>
 
   <section>
@@ -292,7 +292,7 @@
 
   <section>
     <h2>Stay Tuned</h2>
-    <p>We're cooking up something legendary. Make sure to check back soon! 👀</p>
+    <p>We're cooking up something legendary. Make sure to check back soon!</p>
   </section>
 </main>
 
