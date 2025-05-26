@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Electric Studios</title>
   <style>
     :root {
@@ -26,12 +26,12 @@
     }
 
     header {
-      position: relative;
       background-color: var(--cream-yellow);
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 12px 24px;
+      padding: 20px 24px;
+      height: 100px;
       position: sticky;
       top: 0;
       z-index: 1100;
@@ -54,7 +54,7 @@
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
-      height: 60px;
+      height: 80px;
       pointer-events: none;
     }
 
@@ -100,7 +100,6 @@
       text-align: left;
     }
 
-    /* NAVIGATION SIDEBAR */
     nav.sidebar {
       position: fixed;
       top: 0;
@@ -158,10 +157,10 @@
       display: block;
     }
 
-    /* Show flat list items on mobile */
     .mobile-only {
       display: block;
     }
+
     .desktop-only {
       display: none;
     }
@@ -241,17 +240,14 @@
         color: white;
       }
 
-      /* Overlay hidden on desktop */
       .overlay {
         display: none !important;
       }
 
-      /* Hide flat list items on desktop */
       .mobile-only {
         display: none;
       }
 
-      /* Show dropdown item on desktop */
       .desktop-only {
         display: block;
       }
@@ -268,14 +264,11 @@
     <nav class="sidebar" aria-label="Primary navigation">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <!-- Mobile flat list -->
         <li class="mobile-only"><a href="projects.html">Projects</a></li>
-        <!-- Desktop dropdown -->
         <li class="desktop-only">
-          <a href="#" aria-haspopup="true" aria-expanded="false">Other Pages ▾</a>
+          <a href="#">Other Pages ▾</a>
           <ul class="dropdown" aria-label="submenu">
             <li><a href="projects.html">Projects</a></li>
-            <!-- Add more pages here -->
           </ul>
         </li>
       </ul>
