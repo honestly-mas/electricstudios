@@ -1,318 +1,227 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Electric Studios</title>
-  <style>
-    :root {
-      --cream-yellow: #fffdd0;
-      --deep-brown: #2d1b00;
-      --accent-pink: #ff69b4;
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Electric Studios</title>
+<style>
+  :root {
+    --cream-yellow: #fffdd0;
+    --deep-brown: #2d1b00;
+    --accent-pink: #ff69b4;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0; padding: 0;
+  }
+
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--cream-yellow);
+    color: var(--deep-brown);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    height: 100px;
+    background-color: var(--cream-yellow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .header-left {
+    display: flex;
+    align-items: center;
+  }
+
+  .logo {
+    height: 80px;
+    margin-right: 20px;
+    user-select: none;
+  }
+
+  .site-title {
+    font-size: 28px;
+    font-weight: bold;
+    user-select: none;
+  }
+
+  nav {
+    display: flex;
+  }
+
+  nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    align-items: center;
+  }
+
+  nav ul li a {
+    text-decoration: none;
+    color: var(--deep-brown);
+    font-weight: 600;
+    font-size: 18px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+  }
+
+  nav ul li a:hover {
+    background-color: var(--accent-pink);
+    color: white;
+  }
+
+  /* Hamburger menu button - hidden on desktop */
+  .nav-toggle {
+    display: none;
+    font-size: 28px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--deep-brown);
+  }
+
+  /* Overlay behind mobile menu */
+  .overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.3);
+    z-index: 900;
+  }
+
+  /* Mobile styles */
+  @media (max-width: 767px) {
+    nav {
+      position: fixed;
+      top: 0; left: -260px;
+      width: 260px;
+      height: 100vh;
+      background: white;
+      flex-direction: column;
+      padding-top: 100px;
+      gap: 20px;
+      transition: left 0.3s ease;
+      box-shadow: 3px 0 15px rgba(0,0,0,0.15);
+      z-index: 1001;
+      border-radius: 0 0 16px 0;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+    nav.open {
+      left: 0;
     }
 
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--cream-yellow);
-      color: var(--deep-brown);
-      line-height: 1.6;
-      overflow-x: hidden;
-    }
-
-    header {
-      background-color: var(--cream-yellow);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 20px 24px;
-      height: 100px;
-      position: sticky;
-      top: 0;
-      z-index: 1100;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-
-    .header-left {
-      display: flex;
-      align-items: center;
-    }
-
-    .site-title {
-      font-size: 28px;
-      font-weight: bold;
-      color: var(--deep-brown);
-      user-select: none;
-      z-index: 1100;
-    }
-
-    .logo {
-      height: 80px;
-      margin-right: 20px;
-      user-select: none;
-      cursor: default;
-      z-index: 1200;
+    nav ul {
+      flex-direction: column;
+      gap: 20px;
     }
 
     .nav-toggle {
-      font-size: 28px;
-      background: none;
-      border: none;
-      color: var(--deep-brown);
-      cursor: pointer;
-      z-index: 1300;
-      display: none;
-    }
-
-    nav.sidebar {
-      display: flex;
-      align-items: center;
-    }
-
-    nav.sidebar ul {
-      list-style: none;
-      display: flex;
-      flex-direction: row;
-      gap: 40px;
-      align-items: center;
-    }
-
-    nav.sidebar ul li {
-      position: relative;
-    }
-
-    nav.sidebar ul li a {
-      color: var(--deep-brown);
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: 600;
-      padding: 8px 12px;
-      border-radius: 8px;
-      transition: background-color 0.2s ease;
-    }
-
-    nav.sidebar ul li a:hover {
-      background-color: var(--accent-pink);
-      color: white;
-    }
-
-    nav.sidebar ul li.dropdown-parent > ul.dropdown {
-      position: absolute;
-      top: 100%;
-      left: 0;
-      background: white;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      border-radius: 8px;
-      list-style: none;
-      padding: 10px 0;
-      min-width: 160px;
-      display: none;
-      flex-direction: column;
-      z-index: 1300;
-    }
-
-    nav.sidebar ul li.dropdown-parent:hover > ul.dropdown {
-      display: flex;
-    }
-
-    nav.sidebar ul li.dropdown-parent > ul.dropdown li a {
-      padding: 8px 20px;
-      font-size: 16px;
       display: block;
-      white-space: nowrap;
+      z-index: 1100;
     }
 
-    nav.sidebar ul li.dropdown-parent > ul.dropdown li a:hover {
-      background-color: var(--accent-pink);
-      color: white;
-    }
-
-    .mobile-only {
-      display: none;
-    }
-
-    .desktop-only {
+    .overlay.active {
       display: block;
     }
+  }
 
-    main {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 40px 16px;
-      gap: 30px;
-      width: 100%;
-      max-width: 1200px;
-      margin: 0 auto;
-    }
+  main {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+  }
 
-    .section {
-      background: white;
-      border-radius: 16px;
-      padding: 24px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
-      width: 100%;
-      max-width: 900px;
-      text-align: center;
-    }
+  section {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
 
-    .section:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
-    }
+  section h2 {
+    font-size: 26px;
+    margin-bottom: 12px;
+    border-bottom: 2px solid var(--accent-pink);
+    padding-bottom: 8px;
+  }
 
-    .section h2 {
-      font-size: 26px;
-      margin-bottom: 12px;
-      border-bottom: 2px solid var(--accent-pink);
-      padding-bottom: 8px;
-    }
-
-    .section p {
-      font-size: 18px;
-    }
-
-    .overlay {
-      display: none;
-    }
-
-    @media (max-width: 767px) {
-      .nav-toggle {
-        display: block;
-      }
-
-      nav.sidebar {
-        position: fixed;
-        top: 0;
-        left: -260px;
-        width: 260px;
-        height: 100%;
-        background-color: white;
-        box-shadow: 3px 0 15px rgba(0,0,0,0.15);
-        padding: 40px 20px;
-        box-sizing: border-box;
-        transition: left 0.3s ease;
-        z-index: 1400;
-        border-radius: 0 0 16px 0;
-        display: block;
-        flex-direction: column;
-      }
-
-      nav.sidebar.open {
-        left: 0;
-      }
-
-      nav.sidebar ul {
-        flex-direction: column;
-        gap: 20px;
-      }
-
-      .overlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: rgba(0,0,0,0.3);
-        display: none;
-        z-index: 1350;
-      }
-
-      .overlay.active {
-        display: block;
-      }
-
-      .desktop-only {
-        display: none;
-      }
-
-      .mobile-only {
-        display: block;
-      }
-
-      .header-left {
-        flex: 1;
-      }
-
-      .site-title {
-        font-size: 22px;
-        z-index: 1100;
-      }
-
-      .logo {
-        height: 50px;
-        margin-right: 12px;
-        user-select: none;
-      }
-    }
-  </style>
+  section p {
+    font-size: 18px;
+  }
+</style>
 </head>
 <body>
-  <header>
-    <div class="header-left">
-      <img src="es_logo.png" alt="Electric Studios Logo" class="logo" />
-      <div class="site-title">Electric Studios</div>
-    </div>
-    <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
-    <nav class="sidebar" aria-label="Primary navigation">
-      <ul>
-        <li><a href="index.html">Home</a></li>
-        <li class="mobile-only"><a href="projects/index.html">Projects</a></li>
-        <li class="desktop-only dropdown-parent">
-          <a href="#">Other Pages ▾</a>
-          <ul class="dropdown" aria-label="submenu">
-            <li><a href="projects/index.html">Projects</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </header>
 
-  <div class="overlay"></div>
+<header>
+  <div class="header-left">
+    <img src="es_logo.png" alt="Electric Studios Logo" class="logo" />
+    <div class="site-title">Electric Studios</div>
+  </div>
 
-  <main>
-    <section class="section">
-      <h2>Welcome to Electric Studios</h2>
-      <p>Electric Studios is a Roblox-based group that puts on immersive live shows — inspired by real-life tours like The Eras Tour and Short n’ Sweet. We bring iconic music events into the virtual world. 🎤💫</p>
-    </section>
+  <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
 
-    <section class="section">
-      <h2>Our Projects</h2>
-      <p>Projects like The Eras Tour in Roblox, Short n’ Sweet Tour in Roblox, and more exciting virtual events.</p>
-    </section>
+  <nav aria-label="Primary navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li><a href="projects/index.html">Projects</a></li>
+      <li><a href="about.html">About</a></li>
+    </ul>
+  </nav>
+</header>
 
-    <section class="section">
-      <h2>Stay Tuned</h2>
-      <p>We're cooking up something legendary. Make sure to check back soon! 👀</p>
-    </section>
-  </main>
+<div class="overlay"></div>
 
-  <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const sidebar = document.querySelector('nav.sidebar');
-    const overlay = document.querySelector('.overlay');
+<main>
+  <section>
+    <h2>Welcome to Electric Studios</h2>
+    <p>Electric Studios is a Roblox-based group that puts on immersive live shows — inspired by real-life tours like The Eras Tour and Short n’ Sweet. We bring iconic music events into the virtual world. 🎤💫</p>
+  </section>
 
-    function toggleNav() {
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('active');
-    }
+  <section>
+    <h2>Our Projects</h2>
+    <p>Projects like The Eras Tour in Roblox, Short n’ Sweet Tour in Roblox, and more exciting virtual events.</p>
+  </section>
 
-    navToggle.addEventListener('click', toggleNav);
-    overlay.addEventListener('click', toggleNav);
+  <section>
+    <h2>Stay Tuned</h2>
+    <p>We're cooking up something legendary. Make sure to check back soon! 👀</p>
+  </section>
+</main>
 
-    // Close sidebar when a link is clicked (mobile)
-    sidebar.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('active');
-      });
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const nav = document.querySelector('nav');
+  const overlay = document.querySelector('.overlay');
+
+  navToggle.addEventListener('click', () => {
+    nav.classList.toggle('open');
+    overlay.classList.toggle('active');
+  });
+
+  overlay.addEventListener('click', () => {
+    nav.classList.remove('open');
+    overlay.classList.remove('active');
+  });
+
+  // Close nav when any link is clicked (mobile)
+  nav.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      nav.classList.remove('open');
+      overlay.classList.remove('active');
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
