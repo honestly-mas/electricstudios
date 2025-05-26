@@ -48,12 +48,14 @@
       font-weight: bold;
       color: var(--deep-brown);
       user-select: none;
+      z-index: 1100;
     }
 
     .logo {
       position: absolute;
       left: 50%;
       transform: translateX(-50%);
+      top: 10px;
       height: 80px;
       pointer-events: none;
       z-index: 1200;
@@ -65,7 +67,7 @@
       border: none;
       color: var(--deep-brown);
       cursor: pointer;
-      z-index: 1200;
+      z-index: 1300;
       display: none;
     }
 
@@ -132,10 +134,10 @@
       color: white;
     }
 
-    /* Fix: explicitly hide mobile-only on desktop and show desktop-only */
     .mobile-only {
       display: none;
     }
+
     .desktop-only {
       display: block;
     }
@@ -198,9 +200,10 @@
         padding: 40px 20px;
         box-sizing: border-box;
         transition: left 0.3s ease;
-        z-index: 1150;
+        z-index: 1400;
         border-radius: 0 0 16px 0;
         display: block;
+        flex-direction: column;
       }
 
       nav.sidebar.open {
@@ -220,7 +223,7 @@
         height: 100vh;
         background: rgba(0,0,0,0.3);
         display: none;
-        z-index: 1100;
+        z-index: 1350;
       }
 
       .overlay.active {
@@ -233,6 +236,17 @@
 
       .mobile-only {
         display: block;
+      }
+
+      .logo {
+        top: 70px;
+        height: 50px;
+        z-index: 1000;
+      }
+
+      .site-title {
+        font-size: 22px;
+        z-index: 1100;
       }
     }
   </style>
@@ -247,11 +261,11 @@
     <nav class="sidebar" aria-label="Primary navigation">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li class="mobile-only"><a href="projects/">Projects</a></li>
+        <li class="mobile-only"><a href="projects/index.html">Projects</a></li>
         <li class="desktop-only dropdown-parent">
           <a href="#">Other Pages ▾</a>
           <ul class="dropdown" aria-label="submenu">
-            <li><a href="projects/">Projects</a></li>
+            <li><a href="projects/index.html">Projects</a></li>
           </ul>
         </li>
       </ul>
@@ -281,7 +295,6 @@
     const navToggle = document.querySelector('.nav-toggle');
     const sidebar = document.querySelector('nav.sidebar');
     const overlay = document.querySelector('.overlay');
-    const dropdownParent = document.querySelector('li.dropdown-parent > a');
 
     function toggleNav() {
       sidebar.classList.toggle('open');
@@ -291,19 +304,12 @@
     navToggle.addEventListener('click', toggleNav);
     overlay.addEventListener('click', toggleNav);
 
+    // Close sidebar when a link is clicked (mobile)
     sidebar.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         sidebar.classList.remove('open');
         overlay.classList.remove('active');
       });
-    });
-
-    dropdownParent.addEventListener('click', (e) => {
-      if(window.innerWidth < 768) {
-        e.preventDefault();
-        const parentLi = dropdownParent.parentElement;
-        parentLi.classList.toggle('open');
-      }
     });
   </script>
 </body>
