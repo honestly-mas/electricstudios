@@ -15,8 +15,7 @@
 
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
     }
 
     body {
@@ -27,256 +26,225 @@
     }
 
     header {
-      background-color: var(--gray-bg);
       display: flex;
       justify-content: space-between;
       align-items: center;
       padding: 20px 24px;
       height: 100px;
+      background-color: var(--gray-bg);
       position: sticky;
       top: 0;
-      z-index: 1100;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      position: relative;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
     .header-left {
-      flex: 1;
+      display: flex;
+      align-items: center;
+    }
+
+    .logo {
+      height: 80px;
+      margin-right: 20px;
+      user-select: none;
+      filter: grayscale(100%) brightness(0) invert(1);
     }
 
     .site-title {
       font-size: 28px;
       font-weight: bold;
-      color: var(--black);
       user-select: none;
-      text-align: left;
+      color: var(--black);
     }
 
-    /* Logo in center */
-    .logo {
+    /* Navigation styles */
+    nav {
+      display: flex;
+      position: relative;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 40px;
+      align-items: center;
+      background-color: var(--gray-bg);
+      border-radius: 8px;
+      padding: 10px 20px;
+    }
+
+    nav ul li {
+      position: relative;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: var(--black);
+      font-weight: 600;
+      font-size: 18px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      transition: background-color 0.2s ease, color 0.2s ease;
+      display: block;
+      cursor: pointer;
+    }
+
+    nav ul li a:hover {
+      background-color: var(--dark-gray);
+      color: var(--white);
+    }
+
+    /* Dropdown styles for Other Pages on desktop */
+    .dropdown {
+      cursor: pointer;
+    }
+
+    .dropdown > a::after {
+      content: " ▼";
+      font-size: 12px;
+    }
+
+    .dropdown ul {
+      display: none;
       position: absolute;
-      left: 50%;
-      top: 10px;
-      transform: translateX(-50%);
-      height: 80px;
-      pointer-events: none;
-      filter: grayscale(100%) brightness(0) invert(1);
+      top: 100%;
+      left: 0;
+      background: var(--gray-bg);
+      border-radius: 0 0 8px 8px;
+      padding: 10px 0;
+      min-width: 140px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+      z-index: 1002;
     }
 
+    .dropdown ul li a {
+      padding: 8px 20px;
+      border-radius: 0;
+      color: var(--black);
+    }
+
+    .dropdown ul li a:hover {
+      background-color: var(--dark-gray);
+      color: var(--white);
+    }
+
+    /* Show dropdown only on desktop hover */
+    @media (hover: hover) and (min-width: 768px) {
+      .dropdown:hover ul {
+        display: block;
+      }
+    }
+
+    /* Hamburger menu button - hidden on desktop */
     .nav-toggle {
+      display: none;
       font-size: 28px;
       background: none;
       border: none;
-      color: var(--black);
       cursor: pointer;
-      z-index: 1200;
-    }
-
-    nav.sidebar {
-      position: fixed;
-      top: 0;
-      left: -260px;
-      width: 260px;
-      height: 100%;
-      background-color: var(--white);
-      box-shadow: 3px 0 15px rgba(0,0,0,0.15);
-      padding: 40px 20px;
-      box-sizing: border-box;
-      transition: left 0.3s ease;
-      z-index: 1150;
-      border-radius: 0 0 16px 0;
-    }
-
-    nav.sidebar.open {
-      left: 0;
-    }
-
-    nav.sidebar ul {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 20px;
-    }
-
-    nav.sidebar ul li a {
       color: var(--black);
-      text-decoration: none;
-      font-size: 20px;
-      font-weight: 600;
-      padding: 8px 12px;
-      border-radius: 8px;
-      transition: background-color 0.3s ease, color 0.3s ease;
-      cursor: pointer;
-      display: inline-block;
-      position: relative;
-      z-index: 0;
-    }
-
-    nav.sidebar ul li a:hover,
-    nav.sidebar ul li a:focus {
-      background-color: var(--dark-gray);
-      color: var(--white);
-      outline: none;
-    }
-
-    /* Hide the "Other Pages" on mobile */
-    .other-pages-mobile-hide {
-      display: none;
-    }
-
-    .overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0,0,0,0.3);
-      display: none;
       z-index: 1100;
     }
 
-    .overlay.active {
-      display: block;
-    }
-
-    .mobile-only {
-      display: block;
-    }
-
-    .desktop-only {
+    /* Overlay behind mobile menu */
+    .overlay {
       display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.3);
+      z-index: 900;
     }
 
-    @media(min-width: 768px) {
-      .nav-toggle {
-        display: none;
+    /* Mobile styles */
+    @media (max-width: 767px) {
+      nav {
+        position: fixed;
+        top: 0; left: -260px;
+        width: 260px;
+        height: 100vh;
+        background: var(--white);
+        flex-direction: column;
+        padding-top: 100px;
+        gap: 20px;
+        transition: left 0.3s ease;
+        box-shadow: 3px 0 15px rgba(0,0,0,0.15);
+        z-index: 1001;
+        border-radius: 0 0 16px 0;
       }
 
-      nav.sidebar {
-        position: static;
-        width: auto;
-        height: auto;
-        background: transparent;
-        box-shadow: none;
+      nav.open {
+        left: 0;
+      }
+
+      nav ul {
+        flex-direction: column;
+        gap: 20px;
+        background: none;
         padding: 0;
         border-radius: 0;
-        left: 0 !important;
-        display: flex;
-        align-items: center;
-        margin-left: 20px;
-        transition: none;
+        box-shadow: none;
       }
 
-      nav.sidebar ul {
-        flex-direction: row;
-        gap: 40px;
-        align-items: center;
+      nav ul li {
+        position: static;
       }
 
-      nav.sidebar ul > li {
-        position: relative;
+      /* Remove dropdown on mobile */
+      .dropdown > a::after {
+        content: "";
       }
 
-      nav.sidebar ul li a {
-        font-size: 18px;
-        padding: 8px 12px;
-        background: none;
-        color: var(--black);
-        cursor: pointer;
-        border-radius: 8px;
-        transition: background-color 0.3s ease, color 0.3s ease;
-      }
-
-      nav.sidebar ul li a:hover,
-      nav.sidebar ul li a:focus {
-        background-color: var(--dark-gray);
-        color: var(--white);
-        outline: none;
-      }
-
-      /* DROPDOWN STYLES */
-      nav.sidebar ul li ul.dropdown {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        margin-top: 10px;
-        background: var(--gray-bg);
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        border-radius: 0 0 8px 8px;
-        list-style: none;
-        padding: 10px 0;
-        min-width: 160px;
-        display: none;
-        flex-direction: column;
-        gap: 0;
-        z-index: 1300;
-      }
-
-      nav.sidebar ul li:hover > ul.dropdown,
-      nav.sidebar ul li:focus-within > ul.dropdown {
-        display: flex;
-      }
-
-      nav.sidebar ul li ul.dropdown li a {
-        padding: 8px 20px;
-        font-size: 16px;
-        display: block;
-        white-space: nowrap;
-        border-radius: 0;
-        transition: background-color 0.3s ease, color 0.3s ease;
-        color: var(--black);
-      }
-
-      nav.sidebar ul li ul.dropdown li a:hover,
-      nav.sidebar ul li ul.dropdown li a:focus {
-        background-color: var(--dark-gray);
-        color: var(--white);
-        outline: none;
-      }
-
-      /* Invisible buffer zone to cover gap */
-      nav.sidebar ul li .hover-gap-buffer {
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        height: 10px;
-        background: transparent;
-        z-index: 1299;
-      }
-
-      .overlay {
+      .dropdown ul {
         display: none !important;
+        position: static;
+        box-shadow: none;
+        background: none;
+        padding: 0;
+        min-width: auto;
+        border-radius: 0;
       }
 
+      /* Show the projects link as normal */
       .mobile-only {
+        display: block !important;
+      }
+
+      nav.open ul li {
+        padding-left: 16px;
+      }
+
+      nav.open ul li a {
+        padding: 10px 0;
+        font-size: 20px;
+        border-radius: 0;
+        color: var(--black);
+      }
+
+      .nav-toggle {
+        display: block;
+        z-index: 1100;
+      }
+
+      .overlay.active {
+        display: block;
+      }
+
+      /* Hide desktop-only dropdown on mobile */
+      .dropdown {
         display: none;
-      }
-
-      .desktop-only {
-        display: block;
-      }
-
-      /* Show "Other Pages" only on desktop */
-      .other-pages-mobile-hide {
-        display: block;
       }
     }
 
     main {
-      padding: 40px 20px;
       max-width: 900px;
-      margin: 0 auto;
+      margin: 40px auto;
+      padding: 0 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
     }
 
-    h1 {
-      font-size: 38px;
-      text-align: center;
-      margin-bottom: 30px;
-      color: var(--black);
-    }
-
-    .section {
+    section {
       background: var(--white);
       border-radius: 16px;
       padding: 24px;
@@ -284,7 +252,14 @@
       text-align: center;
     }
 
-    .section h2 {
+    h1 {
+      font-size: 38px;
+      margin-bottom: 20px;
+      color: var(--black);
+      text-align: center;
+    }
+
+    section h2 {
       font-size: 26px;
       margin-bottom: 12px;
       border-bottom: 2px solid var(--dark-gray);
@@ -292,7 +267,7 @@
       color: var(--black);
     }
 
-    .section p {
+    section p {
       font-size: 18px;
       color: var(--black);
     }
@@ -302,23 +277,26 @@
 
 <header>
   <div class="header-left">
+    <img src="es_logo.png" alt="Electric Studios Logo" class="logo" />
     <div class="site-title">Electric Studios</div>
   </div>
 
-  <img src="logo.svg" alt="Electric Studios Logo" class="logo" />
+  <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
 
-  <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
-
-  <nav class="sidebar" aria-label="Primary navigation">
+  <nav aria-label="Primary navigation">
     <ul>
-      <li><a href="../index.html">Home</a></li>
-      <li class="other-pages-mobile-hide">
-        <a href="#" aria-haspopup="true" aria-expanded="false">Other Pages ▼</a>
-        <ul class="dropdown" aria-label="submenu">
-          <li><a href="index.html">Projects</a></li>
+      <li><a href="/">Home</a></li>
+
+      <!-- Desktop dropdown for Other Pages -->
+      <li class="dropdown">
+        <a href="#">Other Pages</a>
+        <ul>
+          <li><a href="projects/">Projects</a></li>
         </ul>
-        <div class="hover-gap-buffer"></div>
       </li>
+
+      <!-- Mobile flat list for projects -->
+      <li class="mobile-only" style="display:none"><a href="projects/index.html">Projects</a></li>
     </ul>
   </nav>
 </header>
@@ -326,46 +304,51 @@
 <div class="overlay"></div>
 
 <main>
-  <h1>Our Projects</h1>
+  <h1>Projects</h1>
 
-  <section class="section">
+  <section>
     <h2>The Eras Tour in Roblox</h2>
-    <p>See how Electric Studios recreated Taylor Swift's iconic Eras Tour in Roblox using cutting-edge tech.</p>
+    <p>An immersive Roblox recreation of Taylor Swift’s iconic Eras Tour, bringing the concert experience to life virtually.</p>
   </section>
 
-  <section class="section" style="margin-top: 32px;">
-    <h2>Virtual Concert Experiences</h2>
-    <p>We specialize in immersive virtual concerts and interactive fan engagement.</p>
+  <section>
+    <h2>Short n’ Sweet Tour in Roblox</h2>
+    <p>A virtual music event featuring exclusive performances and unique interactive moments for fans.</p>
+  </section>
+
+  <section>
+    <h2>Upcoming Virtual Events</h2>
+    <p>Stay tuned for new, exciting projects that continue to push the boundaries of virtual live shows.</p>
   </section>
 </main>
 
 <script>
   const navToggle = document.querySelector('.nav-toggle');
-  const sidebar = document.querySelector('nav.sidebar');
+  const nav = document.querySelector('nav');
   const overlay = document.querySelector('.overlay');
 
   navToggle.addEventListener('click', () => {
-    const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-    navToggle.setAttribute('aria-expanded', !expanded);
-    sidebar.classList.toggle('open');
+    nav.classList.toggle('open');
     overlay.classList.toggle('active');
   });
 
   overlay.addEventListener('click', () => {
-    navToggle.setAttribute('aria-expanded', 'false');
-    sidebar.classList.remove('open');
+    nav.classList.remove('open');
     overlay.classList.remove('active');
   });
 
-  // Accessibility: toggle aria-expanded on menu items with submenu
-  const submenuToggles = sidebar.querySelectorAll('li > a[aria-haspopup="true"]');
-  submenuToggles.forEach(toggle => {
-    toggle.addEventListener('click', e => {
-      e.preventDefault();
-      const expanded = toggle.getAttribute('aria-expanded') === 'true';
-      toggle.setAttribute('aria-expanded', !expanded);
-    });
-  });
+  // Show the mobile-only "Projects" link only on mobile widths
+  function updateMobileOnly() {
+    const mobileOnlyLinks = document.querySelectorAll('.mobile-only');
+    if (window.innerWidth < 768) {
+      mobileOnlyLinks.forEach(link => link.style.display = 'block');
+    } else {
+      mobileOnlyLinks.forEach(link => link.style.display = 'none');
+    }
+  }
+
+  window.addEventListener('resize', updateMobileOnly);
+  window.addEventListener('load', updateMobileOnly);
 </script>
 
 </body>
