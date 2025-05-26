@@ -37,6 +37,7 @@
       top: 0;
       z-index: 1100;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      position: relative;
     }
 
     .header-left {
@@ -51,9 +52,11 @@
       text-align: left;
     }
 
+    /* Logo in center */
     .logo {
       position: absolute;
       left: 50%;
+      top: 10px;
       transform: translateX(-50%);
       height: 80px;
       pointer-events: none;
@@ -114,6 +117,11 @@
       background-color: var(--dark-gray);
       color: var(--white);
       outline: none;
+    }
+
+    /* Hide the "Other Pages" on mobile */
+    .other-pages-mobile-hide {
+      display: none;
     }
 
     .overlay {
@@ -248,6 +256,11 @@
       .desktop-only {
         display: block;
       }
+
+      /* Show "Other Pages" only on desktop */
+      .other-pages-mobile-hide {
+        display: block;
+      }
     }
 
     main {
@@ -289,18 +302,20 @@
 
 <header>
   <div class="header-left">
-    <div class="site-title">Projects - Electric Studios</div>
+    <div class="site-title">Electric Studios</div>
   </div>
 
-  <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
+  <img src="logo.svg" alt="Electric Studios Logo" class="logo" />
+
+  <button class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">☰</button>
 
   <nav class="sidebar" aria-label="Primary navigation">
     <ul>
-      <li><a href="index.html">Home</a></li>
-      <li>
+      <li><a href="../index.html">Home</a></li>
+      <li class="other-pages-mobile-hide">
         <a href="#" aria-haspopup="true" aria-expanded="false">Other Pages ▼</a>
         <ul class="dropdown" aria-label="submenu">
-          <li><a href="projects/index.html">Projects</a></li>
+          <li><a href="index.html">Projects</a></li>
         </ul>
         <div class="hover-gap-buffer"></div>
       </li>
