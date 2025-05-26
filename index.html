@@ -184,6 +184,7 @@
       position: static;
     }
 
+    /* Remove dropdown on mobile */
     .dropdown > a::after {
       content: "";
     }
@@ -196,6 +197,11 @@
       padding: 0;
       min-width: auto;
       border-radius: 0;
+    }
+
+    /* Show the projects link as normal */
+    .mobile-only {
+      display: block !important;
     }
 
     nav.open ul li {
@@ -217,6 +223,11 @@
     .overlay.active {
       display: block;
     }
+
+    /* Hide desktop-only dropdown on mobile */
+    .dropdown {
+      display: none;
+    }
   }
 
   main {
@@ -233,6 +244,7 @@
     border-radius: 16px;
     padding: 24px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    text-align: center; /* CENTER TITLE & TEXT */
   }
 
   section h2 {
@@ -261,18 +273,18 @@
 
   <nav aria-label="Primary navigation">
     <ul>
-      <li><a href="index.html">Home</a></li>
+      <li><a href="ellectricstudios.com">Home</a></li>
 
       <!-- Desktop dropdown for Other Pages -->
       <li class="dropdown">
         <a href="#">Other Pages</a>
         <ul>
-          <li><a href="projects/index.html">Projects</a></li>
+          <li><a href="projects/">Projects</a></li>
         </ul>
       </li>
 
-      <!-- On mobile, show Projects flat (because dropdown won't work) -->
-      <li class="mobile-only"><a href="projects/index.html">Projects</a></li>
+      <!-- Mobile flat list for projects -->
+      <li class="mobile-only" style="display:none"><a href="projects/index.html">Projects</a></li>
     </ul>
   </nav>
 </header>
@@ -322,10 +334,14 @@
   // Show/hide mobile-only projects link depending on screen size
   function handleResize() {
     const mobileOnly = document.querySelector('.mobile-only');
+    const dropdown = document.querySelector('.dropdown');
+
     if(window.innerWidth < 768) {
       mobileOnly.style.display = 'block';
+      dropdown.style.display = 'none';
     } else {
       mobileOnly.style.display = 'none';
+      dropdown.style.display = 'block';
     }
   }
   window.addEventListener('resize', handleResize);
