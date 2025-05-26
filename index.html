@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Electric Studios</title>
   <style>
     :root {
@@ -10,19 +10,42 @@
       --deep-brown: #2d1b00;
       --accent-pink: #ff69b4;
     }
-
     * {
       box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+      margin: 0; padding: 0;
     }
-
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--cream-yellow);
       color: var(--deep-brown);
       line-height: 1.6;
       overflow-x: hidden;
+    }
+
+    /* Banner container hidden by default with zero height & no background */
+    #banner-container {
+      display: none;
+      position: sticky;
+      top: 0;
+      z-index: 1300;
+      height: 0;
+      background-color: transparent;
+      overflow: hidden;
+      transition: height 0.3s ease, background-color 0.3s ease;
+    }
+    /* When banner visible: fixed height and cream bg */
+    #banner-container.visible {
+      display: flex;
+      height: 50px;
+      background-color: var(--cream-yellow);
+      padding: 0 20px;
+      align-items: center;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+    }
+    #banner-container object {
+      width: 100%;
+      height: 100%;
+      border: none;
     }
 
     header {
@@ -33,15 +56,15 @@
       padding: 20px 24px;
       height: 100px;
       position: sticky;
-      top: 0;
-      z-index: 1100;
+      top: 0; /* Always flush to page top */
+      z-index: 1200;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: top 0.3s ease;
     }
 
     .header-left {
       flex: 1;
     }
-
     .site-title {
       font-size: 28px;
       font-weight: bold;
@@ -49,7 +72,6 @@
       user-select: none;
       text-align: left;
     }
-
     .logo {
       position: absolute;
       left: 50%;
@@ -57,7 +79,6 @@
       height: 80px;
       pointer-events: none;
     }
-
     .nav-toggle {
       font-size: 28px;
       background: none;
@@ -66,13 +87,11 @@
       cursor: pointer;
       z-index: 1200;
     }
-
     main {
       padding: 30px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
-
     .section {
       background: white;
       border-radius: 16px;
@@ -82,12 +101,10 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-align: center;
     }
-
     .section:hover {
       transform: translateY(-4px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
-
     .section h2 {
       font-size: 26px;
       margin-bottom: 12px;
@@ -95,18 +112,16 @@
       padding-bottom: 8px;
       text-align: center;
     }
-
     .section p {
       font-size: 18px;
       text-align: center;
     }
-
     nav.sidebar {
       position: fixed;
-      top: 0;
+      top: 100px;
       left: -260px;
       width: 260px;
-      height: 100%;
+      height: calc(100% - 100px);
       background-color: white;
       box-shadow: 3px 0 15px rgba(0,0,0,0.15);
       padding: 40px 20px;
@@ -115,18 +130,15 @@
       z-index: 1150;
       border-radius: 0 0 16px 0;
     }
-
     nav.sidebar.open {
       left: 0;
     }
-
     nav.sidebar ul {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
-
     nav.sidebar ul li a {
       color: var(--deep-brown);
       text-decoration: none;
@@ -137,40 +149,33 @@
       transition: background-color 0.2s ease;
       cursor: pointer;
     }
-
     nav.sidebar ul li a:hover {
       background-color: var(--accent-pink);
       color: white;
     }
-
     .overlay {
       position: fixed;
-      top: 0;
+      top: 100px;
       left: 0;
       width: 100vw;
-      height: 100vh;
+      height: calc(100vh - 100px);
       background: rgba(0,0,0,0.3);
       display: none;
       z-index: 1100;
     }
-
     .overlay.active {
       display: block;
     }
-
     .mobile-only {
       display: block;
     }
-
     .desktop-only {
       display: none;
     }
-
     @media(min-width: 768px) {
       .nav-toggle {
         display: none;
       }
-
       nav.sidebar {
         position: static;
         width: auto;
@@ -185,17 +190,14 @@
         margin-left: 20px;
         transition: none;
       }
-
       nav.sidebar ul {
         flex-direction: row;
         gap: 40px;
         align-items: center;
       }
-
       nav.sidebar ul > li {
         position: relative;
       }
-
       nav.sidebar ul li a {
         font-size: 18px;
         padding: 0;
@@ -203,12 +205,10 @@
         color: var(--deep-brown);
         cursor: pointer;
       }
-
       nav.sidebar ul li a:hover {
         background: none;
         color: var(--accent-pink);
       }
-
       nav.sidebar ul li ul.dropdown {
         position: absolute;
         top: 120%;
@@ -224,31 +224,25 @@
         gap: 0;
         z-index: 1300;
       }
-
       nav.sidebar ul li:hover > ul.dropdown {
         display: flex;
       }
-
       nav.sidebar ul li ul.dropdown li a {
         padding: 8px 20px;
         font-size: 16px;
         display: block;
         white-space: nowrap;
       }
-
       nav.sidebar ul li ul.dropdown li a:hover {
         background-color: var(--accent-pink);
         color: white;
       }
-
       .overlay {
         display: none !important;
       }
-
       .mobile-only {
         display: none;
       }
-
       .desktop-only {
         display: block;
       }
@@ -256,6 +250,10 @@
   </style>
 </head>
 <body>
+  <div id="banner-container">
+    <object id="banner-object" type="text/html" data="banner.html"></object>
+  </div>
+
   <header>
     <div class="header-left">
       <div class="site-title">Electric Studios</div>
@@ -299,6 +297,9 @@
     const navToggle = document.querySelector('.nav-toggle');
     const sidebar = document.querySelector('nav.sidebar');
     const overlay = document.querySelector('.overlay');
+    const bannerContainer = document.getElementById('banner-container');
+    const bannerObject = document.getElementById('banner-object');
+    const header = document.querySelector('header');
 
     function toggleNav() {
       sidebar.classList.toggle('open');
@@ -308,12 +309,35 @@
     navToggle.addEventListener('click', toggleNav);
     overlay.addEventListener('click', toggleNav);
 
-    // Close nav when clicking a nav link (mobile)
     sidebar.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         sidebar.classList.remove('open');
         overlay.classList.remove('active');
       });
+    });
+
+    bannerObject.addEventListener('load', () => {
+      try {
+        const doc = bannerObject.contentDocument || bannerObject.contentWindow.document;
+        const bodyText = doc.body.textContent.trim();
+        if(bodyText.length === 0) {
+          bannerContainer.classList.remove('visible');
+          // Keep banner hidden & zero height
+          bannerContainer.style.height = '0';
+          bannerContainer.style.backgroundColor = 'transparent';
+          header.style.top = '0';
+        } else {
+          bannerContainer.classList.add('visible');
+          bannerContainer.style.height = '50px';
+          bannerContainer.style.backgroundColor = '';
+          header.style.top = '50px';
+        }
+      } catch (e) {
+        bannerContainer.classList.remove('visible');
+        bannerContainer.style.height = '0';
+        bannerContainer.style.backgroundColor = 'transparent';
+        header.style.top = '0';
+      }
     });
   </script>
 </body>
