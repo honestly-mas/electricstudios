@@ -21,33 +21,6 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
-
-    /* Banner container hidden by default with zero height & no background */
-    #banner-container {
-      display: none;
-      position: sticky;
-      top: 0;
-      z-index: 1300;
-      height: 0;
-      background-color: transparent;
-      overflow: hidden;
-      transition: height 0.3s ease, background-color 0.3s ease;
-    }
-    /* When banner visible: fixed height and cream bg */
-    #banner-container.visible {
-      display: flex;
-      height: 50px;
-      background-color: var(--cream-yellow);
-      padding: 0 20px;
-      align-items: center;
-      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
-    }
-    #banner-container object {
-      width: 100%;
-      height: 100%;
-      border: none;
-    }
-
     header {
       background-color: var(--cream-yellow);
       display: flex;
@@ -56,12 +29,10 @@
       padding: 20px 24px;
       height: 100px;
       position: sticky;
-      top: 0; /* Always flush to page top */
+      top: 0;
       z-index: 1200;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: top 0.3s ease;
     }
-
     .header-left {
       flex: 1;
     }
@@ -250,10 +221,6 @@
   </style>
 </head>
 <body>
-  <div id="banner-container">
-    <object id="banner-object" type="text/html" data="banner.html"></object>
-  </div>
-
   <header>
     <div class="header-left">
       <div class="site-title">Electric Studios</div>
@@ -297,9 +264,6 @@
     const navToggle = document.querySelector('.nav-toggle');
     const sidebar = document.querySelector('nav.sidebar');
     const overlay = document.querySelector('.overlay');
-    const bannerContainer = document.getElementById('banner-container');
-    const bannerObject = document.getElementById('banner-object');
-    const header = document.querySelector('header');
 
     function toggleNav() {
       sidebar.classList.toggle('open');
@@ -314,30 +278,6 @@
         sidebar.classList.remove('open');
         overlay.classList.remove('active');
       });
-    });
-
-    bannerObject.addEventListener('load', () => {
-      try {
-        const doc = bannerObject.contentDocument || bannerObject.contentWindow.document;
-        const bodyText = doc.body.textContent.trim();
-        if(bodyText.length === 0) {
-          bannerContainer.classList.remove('visible');
-          // Keep banner hidden & zero height
-          bannerContainer.style.height = '0';
-          bannerContainer.style.backgroundColor = 'transparent';
-          header.style.top = '0';
-        } else {
-          bannerContainer.classList.add('visible');
-          bannerContainer.style.height = '50px';
-          bannerContainer.style.backgroundColor = '';
-          header.style.top = '50px';
-        }
-      } catch (e) {
-        bannerContainer.classList.remove('visible');
-        bannerContainer.style.height = '0';
-        bannerContainer.style.backgroundColor = 'transparent';
-        header.style.top = '0';
-      }
     });
   </script>
 </body>
