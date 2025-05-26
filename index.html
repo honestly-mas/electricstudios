@@ -53,9 +53,10 @@
 
     .logo {
       height: 80px;
-      pointer-events: none;
+      margin-right: 20px;
+      user-select: none;
+      cursor: default;
       z-index: 1200;
-      margin-left: 10px; /* Logo aligned left with some margin */
     }
 
     .nav-toggle {
@@ -235,15 +236,19 @@
         display: block;
       }
 
-      .logo {
-        height: 50px;
-        margin-left: 10px;
-        z-index: 1000;
+      .header-left {
+        flex: 1;
       }
 
       .site-title {
         font-size: 22px;
         z-index: 1100;
+      }
+
+      .logo {
+        height: 50px;
+        margin-right: 12px;
+        user-select: none;
       }
     }
   </style>
@@ -301,15 +306,11 @@
     navToggle.addEventListener('click', toggleNav);
     overlay.addEventListener('click', toggleNav);
 
+    // Close sidebar when a link is clicked (mobile)
     sidebar.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        // Allow natural navigation before closing sidebar on mobile
-        if (window.innerWidth <= 767) {
-          setTimeout(() => {
-            sidebar.classList.remove('open');
-            overlay.classList.remove('active');
-          }, 100);
-        }
+        sidebar.classList.remove('open');
+        overlay.classList.remove('active');
       });
     });
   </script>
