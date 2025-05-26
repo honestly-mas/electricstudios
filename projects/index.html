@@ -93,14 +93,33 @@
     }
 
     nav.sidebar ul li a {
+      position: relative;
       color: var(--deep-brown);
       text-decoration: none;
       font-size: 20px;
       font-weight: 600;
-      padding: 8px 12px;
+      padding: 8px 12px 8px 24px; /* space for circle */
       border-radius: 8px;
-      transition: background-color 0.2s ease;
+      transition: background-color 0.2s ease, color 0.3s ease;
       cursor: pointer;
+    }
+
+    nav.sidebar ul li a::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: transparent;
+      transition: background-color 0.3s ease;
+    }
+
+    nav.sidebar ul li a:hover::before,
+    nav.sidebar ul li a:focus::before {
+      background-color: var(--accent-pink);
     }
 
     nav.sidebar ul li a:hover {
@@ -163,15 +182,23 @@
 
       nav.sidebar ul li a {
         font-size: 18px;
-        padding: 0;
+        padding: 0 0 0 24px;
         background: none;
         color: var(--deep-brown);
-        cursor: pointer;
       }
 
       nav.sidebar ul li a:hover {
         background: none;
         color: var(--accent-pink);
+      }
+
+      nav.sidebar ul li a::before {
+        left: 0;
+      }
+
+      nav.sidebar ul li a:hover::before,
+      nav.sidebar ul li a:focus::before {
+        background-color: var(--accent-pink);
       }
 
       nav.sidebar ul li ul.dropdown {
@@ -260,12 +287,12 @@
     <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
     <nav class="sidebar" aria-label="Primary navigation">
       <ul>
-        <li><a href="index.html">Home</a></li>
-        <li class="mobile-only"><a href="projects/index.html" aria-current="page">Projects</a></li>
+        <li><a href="../index.html">Home</a></li>
+        <li class="mobile-only"><a href="index.html">Projects</a></li>
         <li class="desktop-only">
-          <a href="#" aria-haspopup="true" aria-expanded="false">Other Pages ▾</a>
+          <a href="#">Other Pages ▾</a>
           <ul class="dropdown" aria-label="submenu">
-            <li><a href="projects/index.html" aria-current="page">Projects</a></li>
+            <li><a href="index.html">Projects</a></li>
           </ul>
         </li>
       </ul>
@@ -290,9 +317,6 @@
     function toggleNav() {
       sidebar.classList.toggle('open');
       overlay.classList.toggle('active');
-      // toggle aria-expanded for accessibility
-      const expanded = navToggle.getAttribute('aria-expanded') === 'true';
-      navToggle.setAttribute('aria-expanded', String(!expanded));
     }
 
     navToggle.addEventListener('click', toggleNav);
@@ -302,7 +326,6 @@
       link.addEventListener('click', () => {
         sidebar.classList.remove('open');
         overlay.classList.remove('active');
-        navToggle.setAttribute('aria-expanded', 'false');
       });
     });
   </script>
