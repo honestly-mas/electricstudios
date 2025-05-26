@@ -97,11 +97,13 @@
       text-decoration: none;
       font-size: 20px;
       font-weight: 600;
-      padding: 10px 16px;
-      border-radius: 12px;
+      padding: 8px 12px;
+      border-radius: 4px; /* less rounded for hover bg */
       transition: background-color 0.3s ease, color 0.3s ease;
-      display: inline-block;
       cursor: pointer;
+      display: inline-block;
+      position: relative;
+      z-index: 0;
     }
 
     nav.sidebar ul li a:hover,
@@ -160,12 +162,18 @@
         align-items: center;
       }
 
+      nav.sidebar ul > li {
+        position: relative;
+      }
+
       nav.sidebar ul li a {
         font-size: 18px;
-        padding: 8px 16px;
+        padding: 8px 12px;
         background: none;
         color: var(--deep-brown);
-        border-radius: 12px;
+        cursor: pointer;
+        border-radius: 4px; /* less rounded */
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
 
       nav.sidebar ul li a:hover,
@@ -175,10 +183,12 @@
         outline: none;
       }
 
+      /* DROPDOWN STYLES */
       nav.sidebar ul li ul.dropdown {
         position: absolute;
-        top: 120%;
+        top: 100%;
         left: 0;
+        margin-top: 10px; /* keeps visible gap */
         background: white;
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         border-radius: 8px;
@@ -191,7 +201,8 @@
         z-index: 1300;
       }
 
-      nav.sidebar ul li:hover > ul.dropdown {
+      nav.sidebar ul li:hover > ul.dropdown,
+      nav.sidebar ul li:focus-within > ul.dropdown {
         display: flex;
       }
 
@@ -200,13 +211,27 @@
         font-size: 16px;
         display: block;
         white-space: nowrap;
-        border-radius: 0;
+        border-radius: 4px;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
 
       nav.sidebar ul li ul.dropdown li a:hover,
       nav.sidebar ul li ul.dropdown li a:focus {
         background-color: var(--accent-pink);
         color: white;
+        outline: none;
+      }
+
+      /* Invisible buffer zone to cover gap */
+      nav.sidebar ul li .hover-gap-buffer {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        height: 10px; /* same as dropdown margin-top */
+        /* transparent but hoverable */
+        background: transparent;
+        z-index: 1299; /* just below dropdown */
       }
 
       .overlay {
@@ -263,12 +288,13 @@
     <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
     <nav class="sidebar" aria-label="Primary navigation">
       <ul>
-        <li><a href="../index.html">Home</a></li>
-        <li class="mobile-only"><a href="index.html">Projects</a></li>
-        <li class="desktop-only">
-          <a href="#">Other Pages ▾</a>
+        <li><a href="index.html">Home</a></li>
+        <li class="mobile-only"><a href="projects/index.html">Projects</a></li>
+        <li class="desktop-only" tabindex="0">
+          <a href="#" aria-haspopup="true" aria-expanded="false">Other Pages ▾</a>
+          <div class="hover-gap-buffer"></div>
           <ul class="dropdown" aria-label="submenu">
-            <li><a href="index.html">Projects</a></li>
+            <li><a href="projects/index.html">Projects</a></li>
           </ul>
         </li>
       </ul>
