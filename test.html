@@ -3,174 +3,37 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Electric Studios</title>
+<title>Test Navigation</title>
 <style>
   body {
     font-family: Arial, sans-serif;
-    margin: 0; padding: 0;
-    background: #fffdd0;
-    color: #2d1b00;
+    margin: 0;
+    padding: 0;
   }
-
-  header {
-    position: sticky;
-    top: 0;
-    background: #fffdd0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 15px 20px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    z-index: 1000;
-  }
-
-  .header-left {
-    display: flex;
-    align-items: center;
-  }
-
-  .logo {
-    height: 70px;
-    margin-right: 10px;
-  }
-
-  .site-title {
-    font-weight: bold;
-    font-size: 24px;
-  }
-
   nav {
-    display: flex;
+    background: #eee;
+    padding: 10px;
   }
-
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 30px;
-    margin: 0; padding: 0;
-  }
-
   nav a {
+    margin-right: 20px;
     text-decoration: none;
-    color: #2d1b00;
-    font-weight: 600;
+    color: blue;
+    font-weight: bold;
     font-size: 18px;
-    padding: 6px 10px;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-  }
-
-  nav a:hover {
-    background-color: #ff69b4;
-    color: white;
-  }
-
-  /* Hamburger button - hidden on desktop */
-  .nav-toggle {
-    font-size: 28px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    display: none;
-  }
-
-  /* Mobile sidebar */
-  @media (max-width: 767px) {
-    nav {
-      position: fixed;
-      top: 0; left: -260px;
-      width: 260px;
-      height: 100%;
-      background: white;
-      flex-direction: column;
-      padding-top: 80px;
-      gap: 20px;
-      transition: left 0.3s ease;
-      box-shadow: 3px 0 12px rgba(0,0,0,0.15);
-      z-index: 1100;
-    }
-
-    nav.open {
-      left: 0;
-    }
-
-    nav ul {
-      flex-direction: column;
-      gap: 20px;
-      padding-left: 20px;
-    }
-
-    .nav-toggle {
-      display: block;
-      z-index: 1200;
-      color: #2d1b00;
-    }
-
-    /* Overlay */
-    .overlay {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      background: rgba(0,0,0,0.3);
-      display: none;
-      z-index: 1050;
-    }
-
-    .overlay.active {
-      display: block;
-    }
   }
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-left">
-    <img src="es_logo.png" alt="Electric Studios Logo" class="logo" />
-    <div class="site-title">Electric Studios</div>
-  </div>
-  <button class="nav-toggle" aria-label="Toggle menu">☰</button>
-  <nav aria-label="Primary navigation">
-    <ul>
-      <li><a href="index.html">Home</a></li>
-      <li><a href="projects/index.html">Projects</a></li>
-    </ul>
-  </nav>
-</header>
-
-<div class="overlay"></div>
+<nav>
+  <a href="index.html">Home</a>
+  <a href="projects/index.html">Projects</a>
+</nav>
 
 <main>
-  <h1>Welcome to Electric Studios</h1>
-  <p>This is a test page to check mobile navigation.</p>
+  <h1>Test Page</h1>
+  <p>Click the links above to test navigation.</p>
 </main>
-
-<script>
-  const navToggle = document.querySelector('.nav-toggle');
-  const nav = document.querySelector('nav');
-  const overlay = document.querySelector('.overlay');
-
-  function closeNav() {
-    nav.classList.remove('open');
-    overlay.classList.remove('active');
-  }
-
-  navToggle.addEventListener('click', () => {
-    nav.classList.toggle('open');
-    overlay.classList.toggle('active');
-  });
-
-  overlay.addEventListener('click', closeNav);
-
-  // When clicking nav links on mobile, close nav AFTER navigation starts
-  nav.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      if (window.innerWidth <= 767) {
-        setTimeout(closeNav, 100);
-      }
-    });
-  });
-</script>
 
 </body>
 </html>
