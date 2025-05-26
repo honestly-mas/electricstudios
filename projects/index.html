@@ -6,9 +6,11 @@
   <title>Projects - Electric Studios</title>
   <style>
     :root {
-      --cream-yellow: #fffdd0;
-      --deep-brown: #2d1b00;
-      --accent-pink: #ff69b4;
+      --white: #fff;
+      --black: #000;
+      --gray-bg: #ccc;
+      --dark-gray: #333;
+      --light-gray: #eee;
     }
 
     * {
@@ -19,13 +21,13 @@
 
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: var(--cream-yellow);
-      color: var(--deep-brown);
+      background-color: var(--white);
+      color: var(--black);
       overflow-x: hidden;
     }
 
     header {
-      background-color: var(--cream-yellow);
+      background-color: var(--gray-bg);
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -44,7 +46,7 @@
     .site-title {
       font-size: 28px;
       font-weight: bold;
-      color: var(--deep-brown);
+      color: var(--black);
       user-select: none;
       text-align: left;
     }
@@ -55,13 +57,14 @@
       transform: translateX(-50%);
       height: 80px;
       pointer-events: none;
+      filter: grayscale(100%) brightness(0) invert(1);
     }
 
     .nav-toggle {
       font-size: 28px;
       background: none;
       border: none;
-      color: var(--deep-brown);
+      color: var(--black);
       cursor: pointer;
       z-index: 1200;
     }
@@ -72,7 +75,7 @@
       left: -260px;
       width: 260px;
       height: 100%;
-      background-color: white;
+      background-color: var(--white);
       box-shadow: 3px 0 15px rgba(0,0,0,0.15);
       padding: 40px 20px;
       box-sizing: border-box;
@@ -93,12 +96,12 @@
     }
 
     nav.sidebar ul li a {
-      color: var(--deep-brown);
+      color: var(--black);
       text-decoration: none;
       font-size: 20px;
       font-weight: 600;
       padding: 8px 12px;
-      border-radius: 4px;
+      border-radius: 8px;
       transition: background-color 0.3s ease, color 0.3s ease;
       cursor: pointer;
       display: inline-block;
@@ -108,8 +111,8 @@
 
     nav.sidebar ul li a:hover,
     nav.sidebar ul li a:focus {
-      background-color: var(--accent-pink);
-      color: white;
+      background-color: var(--dark-gray);
+      color: var(--white);
       outline: none;
     }
 
@@ -128,7 +131,6 @@
       display: block;
     }
 
-    /* MOBILE ONLY - no "Other Pages" label, just list pages */
     .mobile-only {
       display: block;
     }
@@ -171,16 +173,16 @@
         font-size: 18px;
         padding: 8px 12px;
         background: none;
-        color: var(--deep-brown);
+        color: var(--black);
         cursor: pointer;
-        border-radius: 4px;
+        border-radius: 8px;
         transition: background-color 0.3s ease, color 0.3s ease;
       }
 
       nav.sidebar ul li a:hover,
       nav.sidebar ul li a:focus {
-        background-color: var(--accent-pink);
-        color: white;
+        background-color: var(--dark-gray);
+        color: var(--white);
         outline: none;
       }
 
@@ -190,9 +192,9 @@
         top: 100%;
         left: 0;
         margin-top: 10px;
-        background: white;
+        background: var(--gray-bg);
         box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        border-radius: 8px;
+        border-radius: 0 0 8px 8px;
         list-style: none;
         padding: 10px 0;
         min-width: 160px;
@@ -212,17 +214,19 @@
         font-size: 16px;
         display: block;
         white-space: nowrap;
-        border-radius: 4px;
+        border-radius: 0;
         transition: background-color 0.3s ease, color 0.3s ease;
+        color: var(--black);
       }
 
       nav.sidebar ul li ul.dropdown li a:hover,
       nav.sidebar ul li ul.dropdown li a:focus {
-        background-color: var(--accent-pink);
-        color: white;
+        background-color: var(--dark-gray);
+        color: var(--white);
         outline: none;
       }
 
+      /* Invisible buffer zone to cover gap */
       nav.sidebar ul li .hover-gap-buffer {
         position: absolute;
         top: 100%;
@@ -256,81 +260,98 @@
       font-size: 38px;
       text-align: center;
       margin-bottom: 30px;
+      color: var(--black);
     }
 
     .section {
-      background: white;
+      background: var(--white);
       border-radius: 16px;
       padding: 24px;
       box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      text-align: center; /* CENTER text & title */
+      text-align: center;
     }
 
     .section h2 {
       font-size: 26px;
       margin-bottom: 12px;
-      border-bottom: 2px solid var(--accent-pink);
+      border-bottom: 2px solid var(--dark-gray);
       padding-bottom: 8px;
-      text-align: center;
+      color: var(--black);
     }
 
     .section p {
       font-size: 18px;
-      text-align: center;
+      color: var(--black);
     }
   </style>
 </head>
 <body>
-  <header>
-    <div class="header-left">
-      <div class="site-title">Electric Studios</div>
-    </div>
-    <img src="/es_logo.png" alt="Electric Studios Logo" class="logo" />
-    <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
-    <nav class="sidebar" aria-label="Primary navigation">
-      <ul>
-        <li><a href="/index.html">Home</a></li>
-        <li class="mobile-only"><a href="/projects/">Projects</a></li>
-        <li class="desktop-only" tabindex="0">
-          <a href="#" aria-haspopup="true" aria-expanded="false">Other Pages ▾</a>
-          <div class="hover-gap-buffer"></div>
-          <ul class="dropdown" aria-label="submenu">
-            <li><a href="/projects/">Projects</a></li>
-          </ul>
-        </li>
-      </ul>
-    </nav>
-  </header>
 
-  <div class="overlay"></div>
+<header>
+  <div class="header-left">
+    <div class="site-title">Projects - Electric Studios</div>
+  </div>
 
-  <main>
-    <h1>Projects</h1>
-    <section class="section">
-      <h2>Coming Soon</h2>
-      <p>This page is currently under construction. Check back soon for updates!</p>
-    </section>
-  </main>
+  <button class="nav-toggle" aria-label="Toggle navigation menu">☰</button>
 
-  <script>
-    const navToggle = document.querySelector('.nav-toggle');
-    const sidebar = document.querySelector('nav.sidebar');
-    const overlay = document.querySelector('.overlay');
+  <nav class="sidebar" aria-label="Primary navigation">
+    <ul>
+      <li><a href="index.html">Home</a></li>
+      <li>
+        <a href="#" aria-haspopup="true" aria-expanded="false">Other Pages ▼</a>
+        <ul class="dropdown" aria-label="submenu">
+          <li><a href="projects/index.html">Projects</a></li>
+        </ul>
+        <div class="hover-gap-buffer"></div>
+      </li>
+    </ul>
+  </nav>
+</header>
 
-    function toggleNav() {
-      sidebar.classList.toggle('open');
-      overlay.classList.toggle('active');
-    }
+<div class="overlay"></div>
 
-    navToggle.addEventListener('click', toggleNav);
-    overlay.addEventListener('click', toggleNav);
+<main>
+  <h1>Our Projects</h1>
 
-    sidebar.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('active');
-      });
+  <section class="section">
+    <h2>The Eras Tour in Roblox</h2>
+    <p>See how Electric Studios recreated Taylor Swift's iconic Eras Tour in Roblox using cutting-edge tech.</p>
+  </section>
+
+  <section class="section" style="margin-top: 32px;">
+    <h2>Virtual Concert Experiences</h2>
+    <p>We specialize in immersive virtual concerts and interactive fan engagement.</p>
+  </section>
+</main>
+
+<script>
+  const navToggle = document.querySelector('.nav-toggle');
+  const sidebar = document.querySelector('nav.sidebar');
+  const overlay = document.querySelector('.overlay');
+
+  navToggle.addEventListener('click', () => {
+    const expanded = navToggle.getAttribute('aria-expanded') === 'true';
+    navToggle.setAttribute('aria-expanded', !expanded);
+    sidebar.classList.toggle('open');
+    overlay.classList.toggle('active');
+  });
+
+  overlay.addEventListener('click', () => {
+    navToggle.setAttribute('aria-expanded', 'false');
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+  });
+
+  // Accessibility: toggle aria-expanded on menu items with submenu
+  const submenuToggles = sidebar.querySelectorAll('li > a[aria-haspopup="true"]');
+  submenuToggles.forEach(toggle => {
+    toggle.addEventListener('click', e => {
+      e.preventDefault();
+      const expanded = toggle.getAttribute('aria-expanded') === 'true';
+      toggle.setAttribute('aria-expanded', !expanded);
     });
-  </script>
+  });
+</script>
+
 </body>
 </html>
