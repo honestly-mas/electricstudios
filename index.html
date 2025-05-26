@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Electric Studios</title>
   <style>
     :root {
@@ -10,10 +10,13 @@
       --deep-brown: #2d1b00;
       --accent-pink: #ff69b4;
     }
+
     * {
       box-sizing: border-box;
-      margin: 0; padding: 0;
+      margin: 0;
+      padding: 0;
     }
+
     body {
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
       background-color: var(--cream-yellow);
@@ -21,6 +24,7 @@
       line-height: 1.6;
       overflow-x: hidden;
     }
+
     header {
       background-color: var(--cream-yellow);
       display: flex;
@@ -30,12 +34,14 @@
       height: 100px;
       position: sticky;
       top: 0;
-      z-index: 1200;
+      z-index: 1100;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
     }
+
     .header-left {
       flex: 1;
     }
+
     .site-title {
       font-size: 28px;
       font-weight: bold;
@@ -43,6 +49,7 @@
       user-select: none;
       text-align: left;
     }
+
     .logo {
       position: absolute;
       left: 50%;
@@ -50,6 +57,7 @@
       height: 80px;
       pointer-events: none;
     }
+
     .nav-toggle {
       font-size: 28px;
       background: none;
@@ -58,11 +66,13 @@
       cursor: pointer;
       z-index: 1200;
     }
+
     main {
       padding: 30px 20px;
       max-width: 1200px;
       margin: 0 auto;
     }
+
     .section {
       background: white;
       border-radius: 16px;
@@ -72,10 +82,12 @@
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-align: center;
     }
+
     .section:hover {
       transform: translateY(-4px);
       box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
     }
+
     .section h2 {
       font-size: 26px;
       margin-bottom: 12px;
@@ -83,16 +95,18 @@
       padding-bottom: 8px;
       text-align: center;
     }
+
     .section p {
       font-size: 18px;
       text-align: center;
     }
+
     nav.sidebar {
       position: fixed;
-      top: 100px;
+      top: 0;
       left: -260px;
       width: 260px;
-      height: calc(100% - 100px);
+      height: 100%;
       background-color: white;
       box-shadow: 3px 0 15px rgba(0,0,0,0.15);
       padding: 40px 20px;
@@ -101,15 +115,18 @@
       z-index: 1150;
       border-radius: 0 0 16px 0;
     }
+
     nav.sidebar.open {
       left: 0;
     }
+
     nav.sidebar ul {
       list-style: none;
       display: flex;
       flex-direction: column;
       gap: 20px;
     }
+
     nav.sidebar ul li a {
       color: var(--deep-brown);
       text-decoration: none;
@@ -120,33 +137,78 @@
       transition: background-color 0.2s ease;
       cursor: pointer;
     }
+
     nav.sidebar ul li a:hover {
       background-color: var(--accent-pink);
       color: white;
     }
+
     .overlay {
       position: fixed;
-      top: 100px;
+      top: 0;
       left: 0;
       width: 100vw;
-      height: calc(100vh - 100px);
+      height: 100vh;
       background: rgba(0,0,0,0.3);
       display: none;
       z-index: 1100;
     }
+
     .overlay.active {
       display: block;
     }
+
     .mobile-only {
       display: block;
     }
+
     .desktop-only {
       display: none;
     }
+
+    /* Dropdown menu */
+    nav.sidebar ul li.dropdown-parent > ul.dropdown {
+      position: absolute;
+      top: 120%;
+      left: 0;
+      background: white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 8px;
+      list-style: none;
+      padding: 10px 0;
+      min-width: 160px;
+      display: none;
+      flex-direction: column;
+      gap: 0;
+      z-index: 1300;
+    }
+
+    nav.sidebar ul li.dropdown-parent:hover > ul.dropdown {
+      display: flex !important;
+    }
+
+    nav.sidebar ul li.dropdown-parent > a {
+      cursor: default;
+      pointer-events: none;
+    }
+
+    nav.sidebar ul li.dropdown-parent > ul.dropdown li a {
+      padding: 8px 20px;
+      font-size: 16px;
+      display: block;
+      white-space: nowrap;
+    }
+
+    nav.sidebar ul li.dropdown-parent > ul.dropdown li a:hover {
+      background-color: var(--accent-pink);
+      color: white;
+    }
+
     @media(min-width: 768px) {
       .nav-toggle {
         display: none;
       }
+
       nav.sidebar {
         position: static;
         width: auto;
@@ -161,14 +223,17 @@
         margin-left: 20px;
         transition: none;
       }
+
       nav.sidebar ul {
         flex-direction: row;
         gap: 40px;
         align-items: center;
       }
+
       nav.sidebar ul > li {
         position: relative;
       }
+
       nav.sidebar ul li a {
         font-size: 18px;
         padding: 0;
@@ -176,46 +241,43 @@
         color: var(--deep-brown);
         cursor: pointer;
       }
+
       nav.sidebar ul li a:hover {
         background: none;
         color: var(--accent-pink);
       }
-      nav.sidebar ul li ul.dropdown {
-        position: absolute;
-        top: 120%;
-        left: 0;
-        background: white;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-        border-radius: 8px;
-        list-style: none;
-        padding: 10px 0;
-        min-width: 160px;
-        display: none;
-        flex-direction: column;
-        gap: 0;
-        z-index: 1300;
-      }
-      nav.sidebar ul li:hover > ul.dropdown {
-        display: flex;
-      }
-      nav.sidebar ul li ul.dropdown li a {
-        padding: 8px 20px;
-        font-size: 16px;
-        display: block;
-        white-space: nowrap;
-      }
-      nav.sidebar ul li ul.dropdown li a:hover {
-        background-color: var(--accent-pink);
-        color: white;
-      }
+
       .overlay {
         display: none !important;
       }
+
       .mobile-only {
         display: none;
       }
+
       .desktop-only {
         display: block;
+      }
+    }
+
+    @media (max-width: 767px) {
+      nav.sidebar ul li.dropdown-parent > a {
+        pointer-events: auto;
+        cursor: pointer;
+      }
+      nav.sidebar ul li.dropdown-parent > ul.dropdown {
+        display: none !important;
+        position: static;
+        box-shadow: none;
+        padding: 0;
+        margin-top: 8px;
+        min-width: auto;
+        border-radius: 0;
+        flex-direction: column;
+        gap: 10px;
+      }
+      nav.sidebar ul li.dropdown-parent.open > ul.dropdown {
+        display: flex !important;
       }
     }
   </style>
@@ -230,11 +292,11 @@
     <nav class="sidebar" aria-label="Primary navigation">
       <ul>
         <li><a href="index.html">Home</a></li>
-        <li class="mobile-only"><a href="projects.html">Projects</a></li>
-        <li class="desktop-only">
+        <li class="mobile-only"><a href="projects/index.html">Projects</a></li>
+        <li class="desktop-only dropdown-parent">
           <a href="#">Other Pages ▾</a>
           <ul class="dropdown" aria-label="submenu">
-            <li><a href="projects.html">Projects</a></li>
+            <li><a href="projects/index.html">Projects</a></li>
           </ul>
         </li>
       </ul>
@@ -256,7 +318,7 @@
 
     <section class="section">
       <h2>Stay Tuned</h2>
-      <p>We're cooking up something legendary. Make sure to check back soon 👀</p>
+      <p>We're cooking up something legendary. Make sure to check back soon! 👀</p>
     </section>
   </main>
 
@@ -264,6 +326,7 @@
     const navToggle = document.querySelector('.nav-toggle');
     const sidebar = document.querySelector('nav.sidebar');
     const overlay = document.querySelector('.overlay');
+    const dropdownParent = document.querySelector('li.dropdown-parent > a');
 
     function toggleNav() {
       sidebar.classList.toggle('open');
@@ -273,11 +336,21 @@
     navToggle.addEventListener('click', toggleNav);
     overlay.addEventListener('click', toggleNav);
 
+    // Close nav when clicking a nav link (mobile)
     sidebar.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
         sidebar.classList.remove('open');
         overlay.classList.remove('active');
       });
+    });
+
+    // Mobile: toggle dropdown submenu when clicking parent
+    dropdownParent.addEventListener('click', (e) => {
+      if(window.innerWidth < 768) {
+        e.preventDefault();
+        const parentLi = dropdownParent.parentElement;
+        parentLi.classList.toggle('open');
+      }
     });
   </script>
 </body>
